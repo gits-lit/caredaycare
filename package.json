@@ -1,0 +1,27 @@
+{
+  "name": "qpwinter2018",
+  "version": "1.0.0",
+  "description": "Alexa Pill Dispenser Skill",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gits-lit/qpwinter2018.git"
+  },
+  "keywords": [
+    "alexa",
+    "pill",
+    "dispenser"
+  ],
+  "author": "Clark Phan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gits-lit/qpwinter2018/issues"
+  },
+  "homepage": "https://github.com/gits-lit/qpwinter2018#readme",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25"
+  }
+}
