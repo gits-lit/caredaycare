@@ -1,0 +1,39 @@
+Quick Setup Guide for Nanpy on RaspPi
+By Antony Nguyen
+
+Install Nanpy onto Arduino
+
+1. Go to Downloads directory.
+
+2. git clone https:/github.com/nanpy/nanpy-firmware
+
+3. cd into nanpy-firmware and run ./configure.sh to create
+   configuration file in Nanpy folder.
+
+4. cd into Nanpy and use a text editor to edit cfg.h
+   The header file will determine which parts you would like to use
+   For this project, change the setting for USE_Servo from 0 to 1
+   because we will be using a servo.
+
+5. Copy nanpy-firmware into the Arduino libraries folder using the command
+   cp -avr nanpy-firmware/ ~/sketchbook/libraries/
+
+6. Open up Arduino IDE and upload Nanpy onto Arduino. You can ignore any
+   error messages that says name uses improper characters.
+
+7. Go to File > Sketchbook > Libraries > nanpy-firmware > Nanpy
+   Connect Arduino, compile and upload
+
+Install Arduino onto Raspberry Pi / PC
+
+1. Go to Downloads directory
+
+2. git clone https:/github.com/nanpy/nanpy
+
+3. cd into nanpy folder
+
+4. If using python 3
+   sudo python3 setup.py install
+   If using python 2.7
+   sudo python setup.py install
+   For this project we will be using python3
