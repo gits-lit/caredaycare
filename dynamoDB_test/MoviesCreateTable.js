@@ -1,5 +1,5 @@
 // configure environment variables in .env
-require('dotenv').config({path:'C:/Users/Clark/Desktop/code/qpwinter2018/.env'});
+require('dotenv').config({path:'../.env'});
 
 var AWS = require("aws-sdk");
 
