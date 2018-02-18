@@ -23,6 +23,8 @@
   "homepage": "https://github.com/gits-lit/qpwinter2018#readme",
   "dependencies": {
     "alexa-sdk": "^1.0.25",
-    "dotenv": "^5.0.0"
+    "aws-sdk": "^2.197.0",
+    "dotenv": "^5.0.0",
+    "es6-promisify": "^6.0.0"
   }
 }
