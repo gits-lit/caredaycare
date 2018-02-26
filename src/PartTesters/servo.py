@@ -1,5 +1,4 @@
-from nanpy import (ArduinoApi, SerialManager)
-from nanpy import Servo
+from Arduino import Arduino
 import time
 
 """
@@ -13,22 +12,18 @@ Description: A program to test servos connected to an
 
 servoPin = 2
 
-# Try to connect to the Arduino
-try:
-    connection = SerialManager()
-    a = ArduinoApi(connection = connection)
-except:
-    print("Failed to connect to Arduino")
+# Connect to the Arduino
+Arduino = Arduino('9600')
 
 # Connect the Servo object to a pin
-servo = Servo(servoPin)
+Arduino.Servos.attach(servoPin)
 
 # Main execution loop
 try:
     while True:
         angle = input("Enter a value to rotate to: ")
         print("Setting servo to ", angle)
-        servo.write(angle)
+        Arduino.Servos.write(servoPin, angle)
         time.sleep(1)
 except:
     print("\nClosing program...")
