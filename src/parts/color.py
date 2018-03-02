@@ -25,7 +25,7 @@ Returns: Array of values
          b = blue
 """
 
-def color(pin1, pin2):
+def rgb(Arduino, pin1, pin2, out):
     Arduino.digitalWrite(pin1, 'LOW')
     Arduino.digitalWrite(pin2, 'LOW')
     # count OUT, pRed, RED
