@@ -21,7 +21,7 @@ s3             11
 OUT            10
 OE             GND
 """
-
+servo = 2
 s0 = 8
 s1 = 9
 s2 = 12
@@ -46,6 +46,9 @@ Arduino.pinMode(out, 'INPUT')
 Arduino.digitalWrite(s0, 'HIGH')
 Arduino.digitalWrite(s1, 'HIGH')
 
+# Connect the Servo object to a pin
+Arduino.Servos.attach(servo)
+
 # Main execution loop
 while True:
     colors = color.rgb(Arduino, s2, s3, out)
@@ -54,7 +57,9 @@ while True:
     blue = colors[2]
     if(red < blue and red < green and red < 20):
         print('Red')
+        Arduino.Servos.write(servo, 0);
     elif(blue < red and blue < green and blue < 20):
         print('Blue')
+        Arduino.Servos.write(servo, 180);
     time.sleep(.5)
 print("\nClosing program...")
