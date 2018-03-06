@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
+</body>
+</html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Med Track</title>
+  <title>CARE DAYCARE</title>
   <!-- Reset CSS for better cross-platform compatability -->
   <link rel="stylesheet" type="text/css" href="assets/reset.css">
 
@@ -21,24 +24,35 @@
 
 <body>
   <div class="container">
-    <div class="jumbotron">
-      <a href="https://github.com/gits-lit/qpwinter2018" target="_blank">Github Repo</a>
+    <a href="https://github.com/gits-lit/qpwinter2018" target="_blank">Github Repo</a>
       <div class="text-center">
-        <h1 class="display-1">
-          <strong>Med Track</strong>
-        </h1>
-        <p class="lead">
-          <strong>Made by Antony Nguyen, Clark Phan, Rick Duy Huynh</strong>
-        </p>
-        <hr class="my-4">
-        <p>Current Pill Count:
-          <span id="pill-count">0</span>
-        </p>
-        <p class="lead">
-          <button class="btn btn-success btn-lg">Dispense a pill</button>
-          <button class="btn btn-danger btn-lg">Set timer</button>
-        </p>
-      </div>
+      <h1 class="display-1">
+        <strong>CARE DAYCARE</strong>
+      </h1>
+      <p class="lead">
+        <strong>Clark, Antony, Rick's Emergency Drug Alexa-compatible, Yield, Classification, And Reminder Equipment </strong>
+      </p>
+      <hr class="my-4">
+      <p> Red Pills:
+        <span id="red-count">0</span>
+        Blue Pills:
+        <span id="blue-count">0</span>
+      </p>
+      <p>
+        Type:
+        <select>
+          <option value="red">Red Pill</option>
+          <option value="blue">Blue Pill</option>
+        </select>
+        <button>Dispense Now</button>
+      </p>
+      <p>
+        <form>
+          Time:
+          <input type="time" name="time">
+        </form>
+        <button>Dispense Later</button>
+      </p>
     </div>
   </div>
 </body>
