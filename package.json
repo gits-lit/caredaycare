@@ -24,7 +24,10 @@
   "dependencies": {
     "alexa-sdk": "^1.0.25",
     "aws-sdk": "^2.197.0",
+    "body-parser": "^1.18.2",
     "dotenv": "^5.0.0",
-    "es6-promisify": "^6.0.0"
+    "es6-promisify": "^6.0.0",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
   }
 }
