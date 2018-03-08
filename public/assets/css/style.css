@@ -1,0 +1,27 @@
+html body {
+  padding-top: 5vh;
+}
+
+form {
+  display: inline;
+}
+
+select {
+  padding: 4px;
+}
+
+button {
+  padding: 1px;
+}
+
+option {
+  color: white;
+}
+
+option.red {
+  background-color: red;
+}
+
+option.blue {
+  background-color: #33ccff;
+}
