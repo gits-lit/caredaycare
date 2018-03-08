@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/index.html'));
 });
 
-app.get('/alexa/', function (req, res) {
+app.get('/alexa/pillCount', function (req, res) {
     let ctx = context();
     //index.handler(req.body, ctx);
     index.handler(alexaCommands[0], ctx);
