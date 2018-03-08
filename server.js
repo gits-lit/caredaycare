@@ -42,6 +42,11 @@ app.get('/alexa/', function (req, res) {
     //index.handler(req.body, ctx);
     index.handler(alexaCommands[0], ctx);
     ctx.Promise
-        .then(resp => {  return res.status(200).json(resp); })
-        .catch(err => {  console.log(err); })
+        .then(resp => {
+            let speechResponse = resp.response.outputSpeech.ssml
+            let num = speechResponse.match(/\d/g);
+            num.join("");
+            return res.status(200).json(num); 
+        })
+        .catch(err => {console.log(err);})
 });
