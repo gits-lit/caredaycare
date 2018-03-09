@@ -17,6 +17,15 @@ $(document).ready(() => {
     });
   }
 
+  let resetPillCount = () => {
+    $.ajax({
+      method: "GET",
+      url: "/alexa/resetPillCount"
+    }).done(res => {
+      $('#red-count').text(res);
+    });
+  }
+
   $('#dispenseBtn').on('click', () => {
     dispensePill();
   });
