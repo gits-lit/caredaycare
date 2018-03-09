@@ -16,6 +16,9 @@ const context = require('aws-lambda-mock-context');
 // import alexa commands
 const alexaCommands = require('./commands.json');
 
+// import moment.js
+const moment = require('moment');
+
 // Initialize Express
 const app = express();
 
@@ -26,7 +29,11 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
 
 // Use morgan logger for logging requests
-app.use(logger("dev"));
+logger.token('date-time', (req, res) => {
+    let now = moment();
+    return now.format("h:mm:ss A");
+});
+app.use(logger(':date-time :method :url :status :response-time ms - :res[content-length]'));
 
 // listening for sockets and routes
 app.listen(process.env.PORT || 3000, () => {
@@ -37,7 +44,7 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/client/index.html'));
 });
 
-app.get('/alexa/pillCount', function (req, res) {
+app.get('/alexa/pillCount', (req, res) => {
     let ctx = context();
     //index.handler(req.body, ctx);
     index.handler(alexaCommands[0], ctx);
@@ -52,7 +59,7 @@ app.get('/alexa/pillCount', function (req, res) {
         })
 });
 
-app.get('/alexa/dispensePill', function (req, res) {
+app.get('/alexa/dispensePill', (req, res)  => {
     let ctx = context();
     //index.handler(req.body, ctx);
     index.handler(alexaCommands[1], ctx);
@@ -66,7 +73,7 @@ app.get('/alexa/dispensePill', function (req, res) {
         })
 });
 
-app.get('/alexa/resetPillCount', function (req, res) {
+app.get('/alexa/resetPillCount', (req, res) => {
     let ctx = context();
     //index.handler(req.body, ctx);
     index.handler(alexaCommands[2], ctx);
@@ -78,4 +85,9 @@ app.get('/alexa/resetPillCount', function (req, res) {
         })
         .catch(err => {console.log(err);
         })
+});
+
+app.get('/moment', (req, res) => {
+    let now = moment();
+    res.send(now.format("dddd, MMMM Do YYYY, h:mm:ss a"));
 });
