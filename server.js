@@ -65,3 +65,17 @@ app.get('/alexa/dispensePill', function (req, res) {
         .catch(err => {console.log(err);
         })
 });
+
+app.get('/alexa/resetPillCount', function (req, res) {
+    let ctx = context();
+    //index.handler(req.body, ctx);
+    index.handler(alexaCommands[2], ctx);
+    ctx.Promise
+        .then(resp => {
+            let speechResponse = resp.response.outputSpeech.ssml
+            let num = speechResponse.replace(/[^0-9]/g,'');
+            return res.status(200).json(num); 
+        })
+        .catch(err => {console.log(err);
+        })
+});
