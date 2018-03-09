@@ -26,10 +26,29 @@ $(document).ready(() => {
     });
   }
 
+  let updateTime = () => {
+    $.ajax({
+      method: "GET",
+      url: "/moment"
+    }).done(res => {
+      $('#time').text(res);
+    });
+  }
+
   $('#dispenseBtn').on('click', () => {
     dispensePill();
   });
 
+  $('#resetBtn').on('click', () => {
+    resetPillCount();
+  })
+
   //update pill count on page load
   checkPillCount();
+
+  setInterval( () => {
+    // update time every minute
+    updateTime();
+  }, 1000); // 60 * 1000 milseconds
+  updateTime();
 })
