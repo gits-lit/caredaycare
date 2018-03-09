@@ -36,6 +36,7 @@ logger.token('date-time', (req, res) => {
             break;
         case 304:
             statusCode = colors.yellow(statusCode);
+            break;
         default:
             break;
     }
