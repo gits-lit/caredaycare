@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // use our apiRoutes
 app.use(apiRoutes);
 
-// listening for sockets and routes
+// listening for routes
 app.listen(process.env.PORT || 3000, () => {
     console.log("App is running on port 3000!");
 });
