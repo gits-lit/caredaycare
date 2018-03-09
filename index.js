@@ -43,6 +43,26 @@ const handlers = {
     // emit response directly
     this.emit(':tell', 'Hello World!')
   },
+  'ResetPillCountIntent': function () {
+    const self = this
+    const count = 10;
+    let params = {
+      TableName: table,
+      Item: {
+        "pill_count": count,
+        "pill_brand": pill_brand
+      }
+    };
+    console.log("Adding new item...");
+    docClient.put(params, function (err, data) {
+      if (err) {
+        console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+      } else {
+        console.log("Added item:", JSON.stringify(params, null, 2));
+        self.emit(':tell', 'You currently have ' + count + ' pills');
+      }
+    });
+  },
   'PillCountIntent': function () {
     const self = this
     docClient.get(params, function (err, data) {
@@ -65,7 +85,7 @@ const handlers = {
         // add update query
         params.UpdateExpression = 'set pill_count = :new_count'
         params.ExpressionAttributeValues = {
-          ':new_count': data.Item.pill_count-1
+          ':new_count': data.Item.pill_count - 1
         }
         params.ReturnValues = 'UPDATED_NEW'
         console.log('Updating the item...')
