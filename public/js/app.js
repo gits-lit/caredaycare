@@ -47,8 +47,8 @@ $(document).ready(() => {
   checkPillCount();
 
   setInterval( () => {
-    // update time every minute
+    // update time every second
     updateTime();
-  }, 1000); // 60 * 1000 milseconds
+  }, 1000); 
   updateTime();
 })
