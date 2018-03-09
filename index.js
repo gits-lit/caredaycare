@@ -59,7 +59,7 @@ const handlers = {
         console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
       } else {
         console.log("Added item:", JSON.stringify(params, null, 2));
-        self.emit(':tell', 'You currently have ' + count + ' pills');
+        self.emit(':tell', 'Pill Count reset to ' + count);
       }
     });
   },
