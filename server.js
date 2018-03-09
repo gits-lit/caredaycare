@@ -1,10 +1,12 @@
 // logging client request (POST, GET, etc..)
-const logger = require("morgan");
+const logger = require('morgan');
+const colors = require('colors');
+
 // Middle-ware to test client requests
 const bodyParser = require('body-parser');
 
 // express server
-const express = require("express");
+const express = require('express');
 
 // path to join files
 const path = require('path');
@@ -31,10 +33,24 @@ app.use(express.static(path.join(__dirname, "public")));
 // Use morgan logger for logging requests
 logger.token('date-time', (req, res) => {
     let now = moment();
-    return now.format("h:mm:ss A");
-});
+    let method = req.method;
+    let statusCode = res.statusCode;
+    let url = req.originalUrl;
+    switch(statusCode) {
+        case 200:
+            statusCode = colors.green(statusCode);
+            break;
+        case 304:
+            statusCode = colors.yellow(statusCode);
+        default:
+            break;
+    }
 
-app.use(logger(':date-time :method :url :status :response-time ms'));
+    return `${colors.blue(now.format("h:mm:ss A"))} ${method} ${url} ${statusCode}`;
+});
+app.use(logger(':date-time :response-time ms', {
+    skip: (req, res) => {return req.originalUrl === '/moment';}
+}));
 
 // listening for sockets and routes
 app.listen(process.env.PORT || 3000, () => {
@@ -53,11 +69,9 @@ app.get('/alexa/pillCount', (req, res) => {
         .then(resp => {
             let speechResponse = resp.response.outputSpeech.ssml
             let num = parseInt(speechResponse.replace(/[^0-9]/g,''));
-            console.log(num);
             return res.status(200).json(num); 
         })
-        .catch(err => {console.log(err);
-        })
+        .catch(err => {console.log(err);})
 });
 
 app.get('/alexa/dispensePill', (req, res)  => {
