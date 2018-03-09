@@ -1,108 +1,21 @@
-// logging client request (POST, GET, etc..)
-const logger = require('morgan');
-const colors = require('colors');
-
-// Middle-ware to test client requests
-const bodyParser = require('body-parser');
-
-// express server
-const express = require('express');
+const apiRoutes = require('./routes/api-routes.js');
 
 // path to join files
 const path = require('path');
 
-// lambda function
-const index = require('./index.js');
-const context = require('aws-lambda-mock-context');
-
-// import alexa commands
-const alexaCommands = require('./commands.json');
-
-// import moment.js
-const moment = require('moment');
+// express server
+const express = require('express');
 
 // Initialize Express
 const app = express();
 
-// parse application/json
-app.use(bodyParser.json());
-
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(path.join(__dirname, "public")));
 
-// Use morgan logger for logging requests
-logger.token('date-time', (req, res) => {
-    let now = moment();
-    let method = req.method;
-    let statusCode = res.statusCode;
-    let url = req.originalUrl;
-    switch(statusCode) {
-        case 200:
-            statusCode = colors.green(statusCode);
-            break;
-        case 304:
-            statusCode = colors.yellow(statusCode);
-        default:
-            break;
-    }
-
-    return `${colors.blue(now.format("h:mm:ss A"))} ${method} ${url} ${statusCode}`;
-});
-app.use(logger(':date-time :response-time ms', {
-    skip: (req, res) => {return req.originalUrl === '/moment';}
-}));
+// use our apiRoutes
+app.use(apiRoutes);
 
 // listening for sockets and routes
 app.listen(process.env.PORT || 3000, () => {
     console.log("App is running on port 3000!");
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/client/index.html'));
-});
-
-app.get('/alexa/pillCount', (req, res) => {
-    let ctx = context();
-    //index.handler(req.body, ctx);
-    index.handler(alexaCommands[0], ctx);
-    ctx.Promise
-        .then(resp => {
-            let speechResponse = resp.response.outputSpeech.ssml
-            let num = parseInt(speechResponse.replace(/[^0-9]/g,''));
-            return res.status(200).json(num); 
-        })
-        .catch(err => {console.log(err);})
-});
-
-app.get('/alexa/dispensePill', (req, res)  => {
-    let ctx = context();
-    //index.handler(req.body, ctx);
-    index.handler(alexaCommands[1], ctx);
-    ctx.Promise
-        .then(resp => {
-            let speechResponse = resp.response.outputSpeech.ssml
-            let num = speechResponse.replace(/[^0-9]/g,'');
-            return res.status(200).json(num); 
-        })
-        .catch(err => {console.log(err);
-        })
-});
-
-app.get('/alexa/resetPillCount', (req, res) => {
-    let ctx = context();
-    //index.handler(req.body, ctx);
-    index.handler(alexaCommands[2], ctx);
-    ctx.Promise
-        .then(resp => {
-            let speechResponse = resp.response.outputSpeech.ssml
-            let num = speechResponse.replace(/[^0-9]/g,'');
-            return res.status(200).json(num); 
-        })
-        .catch(err => {console.log(err);
-        })
-});
-
-app.get('/moment', (req, res) => {
-    let now = moment();
-    res.send(now.format("dddd, MMMM Do YYYY, h:mm:ss a"));
 });
