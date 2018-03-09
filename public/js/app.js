@@ -1,17 +1,26 @@
 $(document).ready(() => {
-  let updateCount = () => {
+  let checkPillCount = () => {
     $.ajax({
       method: "GET",
       url: "/alexa/pillCount"
     }).done(res => {
-      $('#red-count').html(res[0]);
+      $('#red-count').text(res);
+    });
+  }
+
+  let dispensePill = () => {
+    $.ajax({
+      method: "GET",
+      url: "/alexa/dispensePill"
+    }).done(res => {
+      $('#red-count').text(res);
     });
   }
 
   $('#dispenseBtn').on('click', () => {
-    console.log('test');
+    dispensePill();
   });
 
   //update pill count on page load
-  updateCount();
+  checkPillCount();
 })
