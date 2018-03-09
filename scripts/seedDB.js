@@ -30,7 +30,6 @@ docClient.put(params, function(err, data) {
     if (err) {
         console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
     } else {
-        console.log();
         console.log("Added item:", JSON.stringify(params, null, 2));
     }
 });
