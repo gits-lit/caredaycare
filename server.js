@@ -44,9 +44,24 @@ app.get('/alexa/pillCount', function (req, res) {
     ctx.Promise
         .then(resp => {
             let speechResponse = resp.response.outputSpeech.ssml
-            let num = speechResponse.match(/\d/g);
-            num.join("");
+            let num = parseInt(speechResponse.replace(/[^0-9]/g,''));
+            console.log(num);
             return res.status(200).json(num); 
         })
-        .catch(err => {console.log(err);})
+        .catch(err => {console.log(err);
+        })
+});
+
+app.get('/alexa/dispensePill', function (req, res) {
+    let ctx = context();
+    //index.handler(req.body, ctx);
+    index.handler(alexaCommands[1], ctx);
+    ctx.Promise
+        .then(resp => {
+            let speechResponse = resp.response.outputSpeech.ssml
+            let num = speechResponse.replace(/[^0-9]/g,'');
+            return res.status(200).json(num); 
+        })
+        .catch(err => {console.log(err);
+        })
 });
