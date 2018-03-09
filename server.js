@@ -33,7 +33,8 @@ logger.token('date-time', (req, res) => {
     let now = moment();
     return now.format("h:mm:ss A");
 });
-app.use(logger(':date-time :method :url :status :response-time ms - :res[content-length]'));
+
+app.use(logger(':date-time :method :url :status :response-time ms'));
 
 // listening for sockets and routes
 app.listen(process.env.PORT || 3000, () => {
