@@ -13,15 +13,3 @@ select {
 button {
   padding: 1px;
 }
-
-option {
-  color: white;
-}
-
-option.red {
-  background-color: red;
-}
-
-option.blue {
-  background-color: #33ccff;
-}
