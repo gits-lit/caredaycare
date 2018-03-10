@@ -74,6 +74,9 @@ router.get('/alexa/dispensePill', (req, res)  => {
         .then(resp => {
             let speechResponse = resp.response.outputSpeech.ssml
             let num = speechResponse.replace(/[^0-9]/g,'');
+            if (num === ''){
+                num = 0;
+            }
             return res.status(200).json(num); 
         })
         .catch(err => {console.log(err);
