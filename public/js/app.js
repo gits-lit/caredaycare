@@ -35,6 +35,11 @@ $(document).ready(() => {
     });
   }
 
+  $('#dispenseLaterForm').submit((event) => {
+    event.preventDefault();
+    console.log('hi');
+  })
+
   $('#dispenseBtn').on('click', () => {
     dispensePill();
   });
