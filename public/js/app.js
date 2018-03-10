@@ -37,7 +37,7 @@ $(document).ready(() => {
 
   $('#dispenseLaterForm').submit((event) => {
     event.preventDefault();
-    console.log('hi');
+    console.log($('input:first').val());
   })
 
   $('#dispenseBtn').on('click', () => {
