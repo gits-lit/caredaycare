@@ -82,6 +82,10 @@ const handlers = {
         console.error('Unable to read item. Error JSON:', JSON.stringify(err, null, 2))
       } else {
         console.log('GetItem succeeded:', JSON.stringify(data, null, 2))
+        if (data.Item.pill_count === 0) {
+          self.emit(':tell', 'Out of pills! Please restock');
+          return;
+        }
         // add update query
         params.UpdateExpression = 'set pill_count = :new_count'
         params.ExpressionAttributeValues = {
