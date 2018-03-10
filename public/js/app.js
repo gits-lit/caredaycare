@@ -37,7 +37,14 @@ $(document).ready(() => {
 
   $('#dispenseLaterForm').submit((event) => {
     event.preventDefault();
-    console.log($('input:first').val());
+    const timeInput = {input:$('input:first').val()};
+    $.ajax({
+      method: 'POST',
+      url: '/setTimer',
+      contentType: 'application/json',
+      data: JSON.stringify(timeInput)
+    })
+    console.log(timeInput);
   })
 
   $('#dispenseBtn').on('click', () => {

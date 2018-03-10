@@ -101,5 +101,10 @@ router.get('/moment', (req, res) => {
     res.send(now.format("dddd, MMMM Do YYYY, h:mm:ss a"));
 });
 
+router.post('/setTimer', (req, res) => {
+    console.log(req.body.input);
+    res.sendStatus(200);
+})
+
 // export our router
 module.exports = router;
