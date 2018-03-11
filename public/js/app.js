@@ -37,14 +37,29 @@ $(document).ready(() => {
 
   $('#dispenseLaterForm').submit((event) => {
     event.preventDefault();
-    const timeInput = {input:$('input:first').val()};
+    let timeInput = {input:$('input:first').val()};
     $.ajax({
       method: 'POST',
       url: '/setTimer',
       contentType: 'application/json',
       data: JSON.stringify(timeInput)
+    }).done(res => {
+      // set pill count when done
+      $('#red-count').text(res);
     })
-    console.log(timeInput);
+
+    // timeInput parsed to moment
+    timeInput = moment($('input:first').val(), "HH:mm");
+
+    if (timeInput < moment()) {
+      //if input is earlier, set to timeInput to next day
+      console.log("this timeInput is earlier than today");
+      timeInput = timeInput.add(1, 'day');
+    }
+
+    // console log time input
+    console.log(timeInput.format("dddd, MMMM Do YYYY, h:mm:ss a"));
+    alert("Alarm set to " +  timeInput.format("dddd, MMMM Do YYYY, h:mm:ss a"))
   })
 
   $('#dispenseBtn').on('click', () => {
