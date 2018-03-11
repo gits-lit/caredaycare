@@ -34,29 +34,38 @@
   <div class="container">
     <a href="https://github.com/gits-lit/qpwinter2018" target="_blank">Github Repo</a>
     <div class="text-center">
-      <h1 class="display-1"><strong>CARE DAYCARE</strong></h1>
-      <p class="lead"><strong>Clark, Antony, Rick's Emergency Drug Alexa-compatible, Yield, Classification, And Reminder Equipment </strong></p>
+      <h1 class="display-1">
+        <strong>CARE DAYCARE</strong>
+      </h1>
+      <p class="lead">
+        <strong>Clark, Antony, Rick's Emergency Drug Alexa-compatible, Yield, Classification, And Reminder Equipment </strong>
+      </p>
       <hr class="my-4">
-      <p><span id="time"></span></p>
-      <p> <span id="redPills">Red Pills:</span>
-        <span id="red-count"></span>
-        <span id="bluePills">Blue Pills:</span>
-        <span id="blue-count"></span>
+      <p>
+        <span id="time"></span>
       </p>
       <p>
-        Type:
-        <select>
-          <option style="background-color: red" value="red">Red Pill</option>
-          <option style="background-color: #33ccff" value="blue">Blue Pill</option>
-        </select>
-        <button id="dispenseBtn">Dispense Now</button>
+        <span id="redPills">Red Pills:</span>
+        <span id="red-count"></span>
+        <span id="greenPills">Green Pills:</span>
+        <span id="green-count"></span>
+      </p>
+      <p>
+        <form id="dispensePillForm">
+          Type:
+          <select id="pill">
+            <option style="background-color: red" value="red">Red Pill</option>
+            <option style="background-color: green" value="green">Green Pill</option>
+          </select>
+          <input type="submit" id="dispenseBtn" value="Dispense Now">
+        </form>
       </p>
       <p>
         <form id="dispenseLaterForm">
           Time:
           <input type="time" name="time">
           <input type="submit" value="Dispense Later">
-      </form>
+        </form>
       </p>
       <button class="btn btn-danger" id="resetBtn">Reset Pill Count</button>
     </div>
