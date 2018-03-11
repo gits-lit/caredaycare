@@ -101,6 +101,10 @@ const handlers = {
           } else {
             console.log('UpdateItem succeeded:', JSON.stringify(data, null, 2))
             // emit response directly
+            if (data.Attributes.pill_count === 1) {
+              self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' pill');
+              return;
+            }
             self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' pills')
           }
         })
