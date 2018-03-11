@@ -8,12 +8,30 @@ $(document).ready(() => {
     });
   }
 
+  let checkGreenPillCount = () => {
+    $.ajax({
+      method: "GET",
+      url: "/alexa/greenPillCount"
+    }).done(res => {
+      $('#green-count').text(res);
+    });
+  }
+
   let dispensePill = () => {
     $.ajax({
       method: "GET",
       url: "/alexa/dispensePill"
     }).done(res => {
       $('#red-count').text(res);
+    });
+  }
+
+  let dispenseGreenPill = () => {
+    $.ajax({
+      method: "GET",
+      url: "/alexa/dispenseGreenPill"
+    }).done(res => {
+      $('#green-count').text(res);
     });
   }
 
@@ -43,13 +61,14 @@ $(document).ready(() => {
         method: "GET",
         url: "/dispenseRedPill"
       })
+      dispensePill();
     } else if (option === "Green Pill") {
       $.ajax({
         method: "GET",
         url: "/dispenseGreenPill"
       })
+      dispenseGreenPill();
     }
-    dispensePill();
   })
 
   $('#dispenseLaterForm').submit((event) => {
@@ -90,5 +109,6 @@ $(document).ready(() => {
 
   //update pill count on page load
   checkPillCount();
+  checkGreenPillCount();
   updateTime();
 })

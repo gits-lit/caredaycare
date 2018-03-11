@@ -74,9 +74,37 @@ router.get('/alexa/pillCount', (req, res) => {
         .catch(err => {console.log(err);})
 });
 
-router.get('/alexa/dispensePill', (req, res)  => {
+router.get('/alexa/greenPillCount', (req, res) => {
     let ctx = context();
     index.handler(alexaCommands[1], ctx);
+    ctx.Promise
+        .then(resp => {
+            let speechResponse = resp.response.outputSpeech.ssml
+            let num = parseInt(speechResponse.replace(/[^0-9]/g,''));
+            return res.status(200).json(num); 
+        })
+        .catch(err => {console.log(err);})
+});
+
+router.get('/alexa/dispensePill', (req, res)  => {
+    let ctx = context();
+    index.handler(alexaCommands[2], ctx);
+    ctx.Promise
+        .then(resp => {
+            let speechResponse = resp.response.outputSpeech.ssml
+            let num = speechResponse.replace(/[^0-9]/g,'');
+            if (num === ''){
+                num = 0;
+            }
+            return res.status(200).json(num); 
+        })
+        .catch(err => {console.log(err);
+        })
+});
+
+router.get('/alexa/dispenseGreenPill', (req, res)  => {
+    let ctx = context();
+    index.handler(alexaCommands[3], ctx);
     ctx.Promise
         .then(resp => {
             let speechResponse = resp.response.outputSpeech.ssml
@@ -92,7 +120,7 @@ router.get('/alexa/dispensePill', (req, res)  => {
 
 router.get('/alexa/resetPillCount', (req, res) => {
     let ctx = context();
-    index.handler(alexaCommands[2], ctx);
+    index.handler(alexaCommands[4], ctx);
     ctx.Promise
         .then(resp => {
             let speechResponse = resp.response.outputSpeech.ssml

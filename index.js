@@ -71,7 +71,27 @@ const handlers = {
       } else {
         console.log('GetItem succeeded:', JSON.stringify(data, null, 2))
         // emit response directly
-        self.emit(':tell', 'You currently have ' + data.Item.pill_count + ' pills')
+        self.emit(':tell', 'You currently have ' + data.Item.pill_count + ' red pills')
+      }
+    })
+  },
+  'GreenPillCountIntent': function () {
+    const self = this
+    const pill_brand = 'greenpill'
+
+    const params = {
+      TableName: table,
+      Key: {
+        'pill_brand': pill_brand
+      }
+    }
+    docClient.get(params, function (err, data) {
+      if (err) {
+        console.error('Unable to read item. Error JSON:', JSON.stringify(err, null, 2))
+      } else {
+        console.log('GetItem succeeded:', JSON.stringify(data, null, 2))
+        // emit response directly
+        self.emit(':tell', 'You currently have ' + data.Item.pill_count + ' green pills')
       }
     })
   },
@@ -102,10 +122,54 @@ const handlers = {
             console.log('UpdateItem succeeded:', JSON.stringify(data, null, 2))
             // emit response directly
             if (data.Attributes.pill_count === 1) {
-              self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' pill');
+              self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' red pill');
               return;
             }
-            self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' pills')
+            self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' red  pills')
+          }
+        })
+      }
+    })
+  },
+  'GreenPillDispenseIntent': function () {
+    const self = this
+    const pill_brand = 'greenpill'
+
+    const params = {
+      TableName: table,
+      Key: {
+        'pill_brand': pill_brand
+      }
+    }
+    docClient.get(params, function (err, data) {
+      if (err) {
+        console.error('Unable to read item. Error JSON:', JSON.stringify(err, null, 2))
+      } else {
+        console.log('GetItem succeeded:', JSON.stringify(data, null, 2))
+        if (data.Item.pill_count === 0) {
+          self.emit(':tell', 'Out of pills! Please restock');
+          return;
+        }
+        // add update query
+        params.UpdateExpression = 'set pill_count = :new_count'
+        params.ExpressionAttributeValues = {
+          ':new_count': data.Item.pill_count - 1
+        }
+        params.ReturnValues = 'UPDATED_NEW'
+        console.log('Updating the item...')
+
+        // update the database
+        docClient.update(params, function (err, data) {
+          if (err) {
+            console.error('Unable to update item. Error JSON:', JSON.stringify(err, null, 2))
+          } else {
+            console.log('UpdateItem succeeded:', JSON.stringify(data, null, 2))
+            // emit response directly
+            if (data.Attributes.pill_count === 1) {
+              self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' green pill');
+              return;
+            }
+            self.emit(':tell', 'Pill dispensed. You now have ' + data.Attributes.pill_count + ' green pills')
           }
         })
       }
