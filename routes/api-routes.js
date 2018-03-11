@@ -143,6 +143,8 @@ router.post('/setTimer', (req, res) => {
             })
             .catch(err => {console.log(err);
             })
+        // filter alarm when function is called
+        alarms = alarms.filter(alarm => alarm.time != timeInput);
     }, duration)
     alarms.push({
         time: timeInput
