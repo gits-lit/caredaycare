@@ -39,7 +39,7 @@ app.get('/dispenseRedPill', (req, res) => {
 });
 
 app.get('/dispenseGreenPill', (req, res) => {
-  //add python code execution for 10 degree turn
+  //add python code execution for 180 degree turn
   const spawn = require('child_process').spawn;
   const ls = spawn('python', ['./src/servo.py', '2', '180']);
 

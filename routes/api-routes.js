@@ -175,6 +175,21 @@ router.post('/setTimer', (req, res) => {
                 })
             // filter alarm when function is called
             alarms = alarms.filter(alarm => alarm.time != timeInput);
+            //add python code execution for 10 degree turn
+            const spawn = require('child_process').spawn;
+            const ls = spawn('python', ['../src/servo.py', '2', '10']);
+
+            ls.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
+            });
+
+            ls.stderr.on('data', (data) => {
+                console.log(`stderr: ${data}`);
+            });
+
+            ls.on('close', (code) => {
+                console.log(`child process exited with code ${code}`);
+            });
         }, duration)
     } else if (req.body.pill === "Green Pill") {
         setTimeout(() => { 
@@ -193,6 +208,21 @@ router.post('/setTimer', (req, res) => {
                 })
             // filter alarm when function is called
             alarms = alarms.filter(alarm => alarm.time != timeInput);
+            //add python code execution for 180 degree turn
+            const spawn = require('child_process').spawn;
+            const ls = spawn('python', ['../src/servo.py', '2', '180']);
+
+            ls.stdout.on('data', (data) => {
+                console.log(`stdout: ${data}`);
+            });
+
+            ls.stderr.on('data', (data) => {
+                console.log(`stderr: ${data}`);
+            });
+
+            ls.on('close', (code) => {
+                console.log(`child process exited with code ${code}`);
+            });
         }, duration)
     }
     alarms.push({
