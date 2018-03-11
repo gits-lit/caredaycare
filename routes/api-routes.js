@@ -56,7 +56,7 @@ router.use(bodyParser.json());
 router.get('/', (req, res) => {
     let count = 1;
     alarms.forEach(alarm => {
-        console.log(`Alarm ${count}: ${alarm.time.format("dddd, MMMM Do YYYY, h:mm:ss a")}`);
+        console.log(`Alarm ${count} (${alarm.pill}): ${alarm.time.format("dddd, MMMM Do YYYY, h:mm:ss a")}`);
         count++;
     });
     res.sendFile(path.join(__dirname, '..', '/client/index.html'));
@@ -137,6 +137,7 @@ router.get('/moment', (req, res) => {
 });
 
 router.post('/setTimer', (req, res) => {
+    console.log(req.body.pill);
     // timeInput parsed to moment
     let timeInput = moment(req.body.input, "HH:mm");
 
@@ -157,25 +158,46 @@ router.post('/setTimer', (req, res) => {
 
     // console log duration to set timer
     console.log("miliseconds:", duration);
-    setTimeout(() => { 
-        let ctx = context();
-        index.handler(alexaCommands[1], ctx);
-        ctx.Promise
-            .then(resp => {
-                let speechResponse = resp.response.outputSpeech.ssml
-                let num = speechResponse.replace(/[^0-9]/g,'');
-                if (num === ''){
-                    num = 0;
-                }
-                return res.status(200).json(num); 
-            })
-            .catch(err => {console.log(err);
-            })
-        // filter alarm when function is called
-        alarms = alarms.filter(alarm => alarm.time != timeInput);
-    }, duration)
+    if (req.body.pill === "Red Pill") {
+        setTimeout(() => { 
+            let ctx = context();
+            index.handler(alexaCommands[2], ctx);
+            ctx.Promise
+                .then(resp => {
+                    let speechResponse = resp.response.outputSpeech.ssml
+                    let num = speechResponse.replace(/[^0-9]/g,'');
+                    if (num === ''){
+                        num = 0;
+                    }
+                    return res.status(200).json(num); 
+                })
+                .catch(err => {console.log(err);
+                })
+            // filter alarm when function is called
+            alarms = alarms.filter(alarm => alarm.time != timeInput);
+        }, duration)
+    } else if (req.body.pill === "Green Pill") {
+        setTimeout(() => { 
+            let ctx = context();
+            index.handler(alexaCommands[3], ctx);
+            ctx.Promise
+                .then(resp => {
+                    let speechResponse = resp.response.outputSpeech.ssml
+                    let num = speechResponse.replace(/[^0-9]/g,'');
+                    if (num === ''){
+                        num = 0;
+                    }
+                    return res.status(200).json(num); 
+                })
+                .catch(err => {console.log(err);
+                })
+            // filter alarm when function is called
+            alarms = alarms.filter(alarm => alarm.time != timeInput);
+        }, duration)
+    }
     alarms.push({
-        time: timeInput
+        time: timeInput,
+        pill: req.body.pill
     })
 })
 
