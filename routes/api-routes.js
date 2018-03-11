@@ -177,7 +177,7 @@ router.post('/setTimer', (req, res) => {
             alarms = alarms.filter(alarm => alarm.time != timeInput);
             //add python code execution for 10 degree turn
             const spawn = require('child_process').spawn;
-            const ls = spawn('python', ['../src/servo.py', '2', '10']);
+            const ls = spawn('python', ['./src/servo.py', '2', '10']);
 
             ls.stdout.on('data', (data) => {
                 console.log(`stdout: ${data}`);
@@ -210,7 +210,7 @@ router.post('/setTimer', (req, res) => {
             alarms = alarms.filter(alarm => alarm.time != timeInput);
             //add python code execution for 180 degree turn
             const spawn = require('child_process').spawn;
-            const ls = spawn('python', ['../src/servo.py', '2', '180']);
+            const ls = spawn('python', ['./src/servo.py', '2', '180']);
 
             ls.stdout.on('data', (data) => {
                 console.log(`stdout: ${data}`);
