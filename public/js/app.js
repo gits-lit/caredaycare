@@ -41,6 +41,7 @@ $(document).ready(() => {
       url: "/alexa/resetPillCount"
     }).done(res => {
       $('#red-count').text(res);
+      $('#green-count').text(res);
     });
   }
 

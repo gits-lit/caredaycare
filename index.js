@@ -59,7 +59,22 @@ const handlers = {
         console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
       } else {
         console.log("Added item:", JSON.stringify(params, null, 2));
-        self.emit(':tell', 'Pill Count reset to ' + count);
+      }
+    });
+    params = {
+      TableName: table,
+      Item: {
+        "pill_count": count,
+        "pill_brand": 'greenpill'
+      }
+    };
+    console.log("Adding new item...");
+    docClient.put(params, function (err, data) {
+      if (err) {
+        console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
+      } else {
+        console.log("Added item:", JSON.stringify(params, null, 2));
+        self.emit(':tell', 'Pill count reset to ' + count);
       }
     });
   },
