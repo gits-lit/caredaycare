@@ -1,0 +1,4 @@
+APP_ID = "amzn1.ask.skill.d4e0d270-deb8-4db7-8b5f-76f95868d4ea"
+IDENTITY_POOL_ID = "us-east-1:ee2f79ab-b66d-4bae-90df-1ef4e90b6d0b"
+KEY = "AKIAJ3ZVUYCCDWHOC5RQ"
+SECRET_KEY = "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"
