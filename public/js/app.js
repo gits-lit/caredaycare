@@ -35,6 +35,23 @@ $(document).ready(() => {
     });
   }
 
+  $('#dispensePillForm').submit((event) => {
+    event.preventDefault();
+    let option = ($("#pill option:selected").text())
+    if (option === "Red Pill") {
+      $.ajax({
+        method: "GET",
+        url: "/dispenseRedPill"
+      })
+    } else if (option === "Green Pill") {
+      $.ajax({
+        method: "GET",
+        url: "/dispenseGreenPill"
+      })
+    }
+    dispensePill();
+  })
+
   $('#dispenseLaterForm').submit((event) => {
     event.preventDefault();
     let timeInput = {input:$('input:first').val()};
@@ -61,10 +78,6 @@ $(document).ready(() => {
     console.log(timeInput.format("dddd, MMMM Do YYYY, h:mm:ss a"));
     alert("Alarm set to " +  timeInput.format("dddd, MMMM Do YYYY, h:mm:ss a"))
   })
-
-  $('#dispenseBtn').on('click', () => {
-    dispensePill();
-  });
 
   $('#resetBtn').on('click', () => {
     resetPillCount();
