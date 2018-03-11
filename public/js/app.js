@@ -70,12 +70,12 @@ $(document).ready(() => {
     resetPillCount();
   })
 
-  //update pill count on page load
-  checkPillCount();
-
   setInterval( () => {
     // update time every second
     updateTime();
   }, 1000); 
+
+  //update pill count on page load
+  checkPillCount();
   updateTime();
 })

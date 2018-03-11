@@ -47,7 +47,7 @@ logger.token('date-time', (req, res) => {
 });
 
 router.use(logger(':date-time :response-time ms', {
-    skip: (req, res) => {return req.originalUrl === '/moment';}
+    skip: (req, res) => {return req.originalUrl === '/moment'}
 }));
 
 // parse application/json
