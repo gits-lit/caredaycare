@@ -74,7 +74,10 @@ $(document).ready(() => {
 
   $('#dispenseLaterForm').submit((event) => {
     event.preventDefault();
-    let timeInput = {input:$('input:first').val()};
+    let timeInput = {
+      input: $('#timeInput').val(),
+      pill: $("#pill option:selected").text()
+    };
     $.ajax({
       method: 'POST',
       url: '/setTimer',
@@ -82,12 +85,17 @@ $(document).ready(() => {
       data: JSON.stringify(timeInput)
     }).done(res => {
       // set pill count when done
-      $('#red-count').text(res);
+      let option = ($("#pill option:selected").text())
+      if (option === "Red Pill") {
+        $('#red-count').text(res);
+      } else if (option === "Green Pill") {
+        $('#green-count').text(res);
+      }
     })
 
     // timeInput parsed to moment
-    timeInput = moment($('input:first').val(), "HH:mm");
-
+    timeInput = moment($('#timeInput').val(), "HH:mm");
+    console.log(timeInput);
     if (timeInput < moment()) {
       //if input is earlier, set to timeInput to next day
       console.log("this timeInput is earlier than today");
