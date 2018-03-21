@@ -9,13 +9,15 @@
 </b>
 <br />
 A pill dispenser built for IEEE Quarterly Project Winter 2018
+<br />
+Created in six weeks with sponsorship from IEEE and UCSD ECE Department
 
 ## Table of Contents
 - [Team Members](https://github.com/gits-lit/qpwinter2018#team-members)
 - [Purpose and Idea](https://github.com/gits-lit/qpwinter2018#purpose-and-idea)
 - [Parts](https://github.com/gits-lit/qpwinter2018#parts)
 - [Demonstration](https://github.com/gits-lit/qpwinter2018#demonstration)
-- [Additional Credit](https://github.com/gits-lit/qpwinter2018#additional-credit)
+- [Additional Credit](https://github.com/gits-lit/qpwinter2018#additional-credit--special-thanks)
 - [License](https://github.com/gits-lit/qpwinter2018#license)
 
 ## Team Members
