@@ -6,11 +6,11 @@
     <b>
       Clark Antony Rick's Emergency Drug Alexa-compatible Yield, Classification, And Reminder Equipment
     </b>
-</p>
 <br />
 A pill dispenser built for IEEE Quarterly Project Winter 2018
 <br />
 Created in six weeks with sponsorship from IEEE and UCSD ECE Department
+</p>
 
 ## Table of Contents
 - [Team Members](https://github.com/gits-lit/qpwinter2018#team-members)
